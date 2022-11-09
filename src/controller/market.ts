@@ -25,4 +25,14 @@ const createProduct = async (req: Request, res: Response) => {
   res.status(201).json({ message: 'SUCCESS' });
 };
 
-export { createMarket, createProduct };
+const updateProduct = async (req: Request, res: Response) => {
+  const userId = req.userId;
+  const id = req.params.id;
+  const data = req.body;
+
+  await marketService.updateProduct(id, userId!, data);
+
+  res.status(201).json({ message: 'SUCCESS' });
+};
+
+export { createMarket, createProduct, updateProduct };

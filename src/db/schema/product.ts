@@ -35,4 +35,6 @@ export const productSchema = new mongoose.Schema({
   productImg: [productImgSchema],
   productDetail: [productDetailSchema],
   deliveryInfo: deliveryInfoSchema,
+  userId: { type: String, required: true },
+  marketId: { type: String, require: true },
 });

@@ -36,11 +36,20 @@ const createMarket = async (
 };
 
 const createProduct = async (userId: string, data: object) => {
-  let market = await marketRepository.getMarketByUserId(userId);
+  const market = await marketRepository.getMarketByUserId(userId);
   if (!market) {
     throw new ForbiddenException('INVALID_PERMISSION');
   }
   await productRepository.createProduct(userId, String(market._id), data);
 };
 
-export { createMarket, createProduct };
+const updateProduct = async (id: string, userId: string, data: object) => {
+  const product = await productRepository.getProductById(id);
+
+  if (!product || product.userId !== userId) {
+    throw new ForbiddenException('INVALID_PERMISSION');
+  }
+  await productRepository.updateProduct(id, data);
+};
+
+export { createMarket, createProduct, updateProduct };
