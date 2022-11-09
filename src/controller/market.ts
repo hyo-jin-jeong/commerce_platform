@@ -44,4 +44,24 @@ const deleteProduct = async (req: Request, res: Response) => {
   res.status(200).json({ message: 'SUCCESS' });
 };
 
-export { createMarket, createProduct, updateProduct, deleteProduct };
+const getProduct = async (req: Request, res: Response) => {
+  let result = null;
+  const id = req.params.id;
+
+  const product = await marketService.getProduct(id);
+
+  if (product) {
+    const { userId, marketId, ...data } = product.toObject();
+    result = data;
+  }
+
+  res.status(200).json({ data: result });
+};
+
+export {
+  createMarket,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  getProduct,
+};
