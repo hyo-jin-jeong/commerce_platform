@@ -2,7 +2,7 @@ import * as marketController from '../controller/market';
 
 import {
   createMarketValidate,
-  createProductValidate,
+  createOrUpdateProductValidate,
 } from '../middleware/validation/market';
 
 import authentication from '../middleware/authentication';
@@ -19,8 +19,14 @@ router.post(
 router.post(
   '/products',
   authentication,
-  createProductValidate,
+  createOrUpdateProductValidate,
   marketController.createProduct
+);
+router.put(
+  '/products/:id',
+  authentication,
+  createOrUpdateProductValidate,
+  marketController.updateProduct
 );
 
 export default router;

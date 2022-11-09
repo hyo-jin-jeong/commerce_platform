@@ -24,4 +24,19 @@ const createProduct = async (
   });
   await product.save();
 };
-export { OPTION_TYPE, DELIVERY_TYPE, createProduct };
+
+const getProductById = async (id: string) => {
+  return await Product.findById(id);
+};
+
+const updateProduct = async (id: string, data: object) => {
+  await Product.updateOne({ _id: id }, { ...data });
+};
+
+export {
+  OPTION_TYPE,
+  DELIVERY_TYPE,
+  createProduct,
+  getProductById,
+  updateProduct,
+};

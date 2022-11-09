@@ -15,7 +15,7 @@ const createMarketValidate = [
   validate,
 ];
 
-const createProductValidate = [
+const createOrUpdateProductValidate = [
   body('productName')
     .notEmpty()
     .withMessage('INVALID_VALUE')
@@ -76,4 +76,4 @@ const createProductValidate = [
   validate,
 ];
 
-export { createMarketValidate, createProductValidate };
+export { createMarketValidate, createOrUpdateProductValidate };
