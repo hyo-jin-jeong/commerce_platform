@@ -29,4 +29,6 @@ router.put(
   marketController.updateProduct
 );
 
+router.delete('/products/:id', authentication, marketController.deleteProduct);
+
 export default router;

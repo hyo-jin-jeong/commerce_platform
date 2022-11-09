@@ -33,10 +33,15 @@ const updateProduct = async (id: string, data: object) => {
   await Product.updateOne({ _id: id }, { ...data });
 };
 
+const deleteProduct = async (id: string) => {
+  await Product.deleteOne({ _id: id });
+};
+
 export {
   OPTION_TYPE,
   DELIVERY_TYPE,
   createProduct,
   getProductById,
   updateProduct,
+  deleteProduct,
 };

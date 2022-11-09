@@ -5,8 +5,21 @@ import * as userRepository from '../model/user';
 import {
   BadReqeustException,
   ForbiddenException,
+  NotFoundException,
   UnauthorizedException,
 } from '../util/exception';
+
+const productAccessPermissionCheck = async (id: string, userId: string) => {
+  const product = await productRepository.getProductById(id);
+  console.log(product?.userId, userId);
+  if (!product) {
+    throw new NotFoundException('NOT_FOUND');
+  }
+  if (product.userId !== userId) {
+    throw new ForbiddenException('INVALID_PERMISSION');
+  }
+  return product;
+};
 
 const createMarket = async (
   userId: string,
@@ -44,12 +57,13 @@ const createProduct = async (userId: string, data: object) => {
 };
 
 const updateProduct = async (id: string, userId: string, data: object) => {
-  const product = await productRepository.getProductById(id);
-
-  if (!product || product.userId !== userId) {
-    throw new ForbiddenException('INVALID_PERMISSION');
-  }
+  await productAccessPermissionCheck(id, userId);
   await productRepository.updateProduct(id, data);
 };
 
-export { createMarket, createProduct, updateProduct };
+const deleteProduct = async (id: string, userId: string) => {
+  await productAccessPermissionCheck(id, userId);
+  await productRepository.deleteProduct(id);
+};
+
+export { createMarket, createProduct, updateProduct, deleteProduct };
