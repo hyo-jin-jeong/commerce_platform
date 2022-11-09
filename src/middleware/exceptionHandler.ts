@@ -9,9 +9,9 @@ const exceptionHandler = (
   const status = err.status;
   const message = err.message;
   if (err.status) {
-    res.status(status).json({ message });
+    return res.status(status).json({ message });
   }
-  next();
+  next(err);
 };
 
 export default exceptionHandler;

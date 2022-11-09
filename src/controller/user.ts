@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
+import * as userService from '../service/user';
 
-import userService from '../service/user';
+import { Request, Response } from 'express';
 
 const signup = async (req: Request, res: Response) => {
   const { email, password, name, countryCode, phoneNumber, agreeTerms } =
