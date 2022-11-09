@@ -1,7 +1,12 @@
 import * as marketRepository from '../model/market';
+import * as productRepository from '../model/product';
 import * as userRepository from '../model/user';
 
-import { BadReqeustException, UnauthorizedException } from '../util/exception';
+import {
+  BadReqeustException,
+  ForbiddenException,
+  UnauthorizedException,
+} from '../util/exception';
 
 const createMarket = async (
   userId: string,
@@ -30,4 +35,12 @@ const createMarket = async (
   );
 };
 
-export { createMarket };
+const createProduct = async (userId: string, data: object) => {
+  let market = await marketRepository.getMarketByUserId(userId);
+  if (!market) {
+    throw new ForbiddenException('INVALID_PERMISSION');
+  }
+  await productRepository.createProduct(userId, String(market._id), data);
+};
+
+export { createMarket, createProduct };
