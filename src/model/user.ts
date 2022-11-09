@@ -4,14 +4,15 @@ import { userSchema } from '../db/schema/user';
 const User = mongoose.model('User', userSchema);
 
 const createUser = async (params: object) => {
-  User.create(params);
+  await User.create(params);
 };
 
 const getUserByEmail = async (email: string) => {
-  return User.findOne({ email });
+  return await User.findOne({ email });
 };
 
-export default {
-  createUser,
-  getUserByEmail,
+const getUserById = async (userId: string) => {
+  return await User.findById(userId);
 };
+
+export { createUser, getUserByEmail, getUserById };

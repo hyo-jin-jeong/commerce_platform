@@ -1,3 +1,5 @@
+import * as userRepository from '../model/user';
+
 import {
   BadReqeustException,
   UnauthorizedException,
@@ -5,7 +7,6 @@ import {
 import { encryptPassword, isSamePassword } from '../util/encryptPassword';
 
 import { createJsonWebToken } from '../util/createJsonWebToken';
-import userRepository from '../model/user';
 
 const signup = async (
   email: string,
@@ -17,7 +18,7 @@ const signup = async (
 ) => {
   const user = await userRepository.getUserByEmail(email);
   if (user) {
-    throw new BadReqeustException('DUPLICATED_VALUE');
+    throw new BadReqeustException('EXISTS VALUE');
   }
   const hashedPassword = await encryptPassword(password);
 
@@ -43,4 +44,4 @@ const login = async (email: string, password: string) => {
   return createJsonWebToken(user._id);
 };
 
-export default { signup, login };
+export { signup, login };
