@@ -6,7 +6,7 @@ const signup = async (req: Request, res: Response) => {
   const { email, password, name, countryCode, phoneNumber, agreeTerms } =
     req.body;
 
-  const result = await userService.signup(
+  await userService.signup(
     email,
     password,
     name,
@@ -14,8 +14,16 @@ const signup = async (req: Request, res: Response) => {
     phoneNumber,
     agreeTerms
   );
-  console.log(result);
+
   res.status(201).json({ message: 'SUCCESS' });
 };
 
-export { signup };
+const login = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  const result = await userService.login(email, password);
+
+  res.status(200).json({ token: result });
+};
+
+export { signup, login };

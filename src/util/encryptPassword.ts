@@ -7,4 +7,7 @@ const encryptPassword = async (password: string) => {
   return hashedPassword;
 };
 
-export default encryptPassword;
+const isSamePassword = async (password: string, hashedPassword: string) => {
+  return await bcrypt.compare(password, hashedPassword);
+};
+export { encryptPassword, isSamePassword };
