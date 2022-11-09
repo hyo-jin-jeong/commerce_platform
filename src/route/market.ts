@@ -31,4 +31,5 @@ router.put(
 
 router.delete('/products/:id', authentication, marketController.deleteProduct);
 
+router.get('/products/:id', marketController.getProduct);
 export default router;

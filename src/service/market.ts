@@ -66,4 +66,14 @@ const deleteProduct = async (id: string, userId: string) => {
   await productRepository.deleteProduct(id);
 };
 
-export { createMarket, createProduct, updateProduct, deleteProduct };
+const getProduct = async (id: string) => {
+  return await productRepository.getProductById(id);
+};
+
+export {
+  createMarket,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  getProduct,
+};
