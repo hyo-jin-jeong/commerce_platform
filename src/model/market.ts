@@ -21,7 +21,6 @@ const createMarket = async (
   });
   await market.save();
 };
-
 const getMarketByUserId = async (userId: string) => {
   return await Market.findOne({ userId });
 };
