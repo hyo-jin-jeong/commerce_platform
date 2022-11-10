@@ -9,6 +9,12 @@ import {
   UnauthorizedException,
 } from '../util/exception';
 
+import { QueryOptions } from 'mongoose';
+
+const SORT = {
+  RECENT: 'recent',
+  DEADLINE: 'deadline',
+};
 const productAccessPermissionCheck = async (id: string, userId: string) => {
   const product = await productRepository.getProductById(id);
   console.log(product?.userId, userId);
@@ -70,10 +76,56 @@ const getProduct = async (id: string) => {
   return await productRepository.getProductById(id);
 };
 
+const getProducts = async (
+  search: string | undefined,
+  category: string | undefined,
+  nation: string | undefined,
+  sort: string | undefined
+) => {
+  const { query, sortValue } = createQueryOptions(
+    search,
+    category,
+    nation,
+    sort
+  );
+  return await productRepository.getProducts(query, sortValue);
+};
+
+const createQueryOptions = (
+  search: string | undefined,
+  category: string | undefined,
+  nation: string | undefined,
+  sort: string | undefined
+) => {
+  let query: QueryOptions = {};
+  let categories, nations, sortValue;
+  if (search) {
+    query['productName'] = search;
+  }
+  if (category) {
+    categories = JSON.parse(category);
+    query['$or'] = categories;
+  }
+  if (nation) {
+    nations = JSON.parse(nation);
+    query['deliveryInfo.country'] = { $in: nations };
+  }
+  if (sort) {
+    if (sort === SORT.RECENT) {
+      sortValue = { createdAt: -1 };
+    } else if (sort === SORT.DEADLINE) {
+      sortValue = { 'deliveryInfo.dueDate': 1 };
+    }
+  }
+
+  return { query, sortValue };
+};
+
 export {
   createMarket,
   createProduct,
   updateProduct,
   deleteProduct,
   getProduct,
+  getProducts,
 };
