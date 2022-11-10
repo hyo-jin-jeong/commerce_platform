@@ -23,18 +23,21 @@ const deliveryInfoSchema = new mongoose.Schema({
   sendDate: Date,
 });
 
-export const productSchema = new mongoose.Schema({
-  productName: { type: String, requried: true, min: 80 },
-  mainCategory: { type: String, required: true },
-  subCategory: { type: String, required: true },
-  productInfo: { type: String, required: true },
-  purchaseDate: { type: Date },
-  price: { type: Number, required: true },
-  optionType: { type: String, enum: ['single', 'group'] },
-  optionList: [optionsSchema],
-  productImg: [productImgSchema],
-  productDetail: [productDetailSchema],
-  deliveryInfo: deliveryInfoSchema,
-  userId: { type: String, required: true },
-  marketId: { type: String, require: true },
-});
+export const productSchema = new mongoose.Schema(
+  {
+    productName: { type: String, requried: true, min: 80 },
+    mainCategory: { type: String, required: true },
+    subCategory: { type: String, required: true },
+    productInfo: { type: String, required: true },
+    purchaseDate: { type: Date },
+    price: { type: Number, required: true },
+    optionType: { type: String, enum: ['single', 'group'] },
+    optionList: [optionsSchema],
+    productImg: [productImgSchema],
+    productDetail: [productDetailSchema],
+    deliveryInfo: deliveryInfoSchema,
+    userId: { type: String, required: true },
+    marketId: { type: String, require: true },
+  },
+  { timestamps: true }
+);

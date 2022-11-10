@@ -28,8 +28,8 @@ router.put(
   createOrUpdateProductValidate,
   marketController.updateProduct
 );
-
 router.delete('/products/:id', authentication, marketController.deleteProduct);
-
 router.get('/products/:id', marketController.getProduct);
+router.get('/products', marketController.getProducts);
+
 export default router;

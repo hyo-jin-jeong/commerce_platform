@@ -58,10 +58,27 @@ const getProduct = async (req: Request, res: Response) => {
   res.status(200).json({ data: result });
 };
 
+const getProducts = async (req: Request, res: Response) => {
+  const search = req.query.search as string;
+  const category = req.query.category as string;
+  const nation = req.query.nation as string;
+  const sort = req.query.sort as string;
+
+  const products = await marketService.getProducts(
+    search,
+    category,
+    nation,
+    sort
+  );
+
+  res.status(200).json({ data: products });
+};
+
 export {
   createMarket,
   createProduct,
   updateProduct,
   deleteProduct,
   getProduct,
+  getProducts,
 };
