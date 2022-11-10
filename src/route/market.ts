@@ -1,23 +1,14 @@
 import * as marketController from '../controller/market';
 
+import {
+  createMarketValidate,
+  createOrUpdateProductValidate,
+} from '../middleware/validation/market';
+
 import authentication from '../middleware/authentication';
-import { body } from 'express-validator';
 import express from 'express';
-import validate from '../middleware/validate';
 
 const router = express.Router();
-
-const createMarketValidate = [
-  body('marketName')
-    .notEmpty()
-    .withMessage('INVALID_VALUE')
-    .isLength({ max: 10 })
-    .withMessage('INVALID_VALUE'),
-  body('bank').notEmpty().withMessage('INVALID_VALUE'),
-  body('accountNumber').notEmpty().withMessage('INVALID_VALUE'),
-  body('accountName').notEmpty().withMessage('INVALID_VALUE'),
-  validate,
-];
 
 router.post(
   '/',
@@ -25,5 +16,20 @@ router.post(
   createMarketValidate,
   marketController.createMarket
 );
+router.post(
+  '/products',
+  authentication,
+  createOrUpdateProductValidate,
+  marketController.createProduct
+);
+router.put(
+  '/products/:id',
+  authentication,
+  createOrUpdateProductValidate,
+  marketController.updateProduct
+);
+router.delete('/products/:id', authentication, marketController.deleteProduct);
+router.get('/products/:id', marketController.getProduct);
+router.get('/products', marketController.getProducts);
 
 export default router;
