@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+import mongoose, { Query, QueryOptions } from 'mongoose';
+
 import { productSchema } from '../db/schema/product';
 
 const OPTION_TYPE = {
@@ -37,6 +38,10 @@ const deleteProduct = async (id: string) => {
   await Product.deleteOne({ _id: id });
 };
 
+const getProducts = async (query: QueryOptions, sortValue: any) => {
+  return await Product.find({ ...query }).sort(sortValue);
+};
+
 export {
   OPTION_TYPE,
   DELIVERY_TYPE,
@@ -44,4 +49,5 @@ export {
   getProductById,
   updateProduct,
   deleteProduct,
+  getProducts,
 };
