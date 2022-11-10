@@ -14,6 +14,7 @@ import router from './route/index';
 const corsOptions = {
   origin: '*',
 };
+
 export const startServer = (port: number) => {
   const app = express();
   app.use(express.json());
