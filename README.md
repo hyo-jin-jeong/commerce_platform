@@ -13,6 +13,10 @@
 - DB : mongodb
 
 ## 요구사항 분석 및 구현 사항 정리
+### 기술 관련
+- winston, morgan module을 사용하여 logging 처리
+- express-validator module 사용하여 validation 처리
+
 ### 회원가입
 - 이메일
 - 비밀번호 (영문/숫자/특수문자 조합 8~20자, bcrypt 암호화 하여 저장)
@@ -68,14 +72,15 @@ query string 방식
 - 최신순/주문 마감일 순 정렬 &sort=recent or deadline
 
 
-
-
 ## 구현 예정
 - 썸네일(최대 8장) → 구현 예정
 - 상세설명(사용자 선택) → 구현 예정
     - 동영상 or 사진 → detail 설명 설정 가능
 ## DB Modeling
-
+총 3개의 collection을 가지고 진행
+- 유저
+- 마켓
+- 상품
 ## API 문서
 자세한 내용은 아래 링크 참조<br>
 [POSTMAN DOCS](https://documenter.getpostman.com/view/11539438/2s8YemvaPn).
@@ -90,7 +95,6 @@ query string 방식
 |  |  상품상세조회  | GET |/api/markets/products/:id | |
 |  |  상품목록조회  | GET |api/markets/products| | ?search=미국 <br>&category=[{"mainCategory":"가방"},{"mainCategory":"신발", "subCategory":"운동화"}]<br>&nation=["korea", "us"]<br> &sort=deadline |
 
- > 
 
 ## 구현 과정 
 ### 프로젝트 초기 세팅 순서
