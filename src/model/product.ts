@@ -2,52 +2,89 @@ import mongoose, { Query, QueryOptions } from 'mongoose';
 
 import { productSchema } from '../db/schema/product';
 
-const OPTION_TYPE = {
+export const OPTION_TYPE = {
   SINGLE: 'single',
   GROUP: 'group',
 };
-const DELIVERY_TYPE = {
+export const DELIVERY_TYPE = {
   IN_KOREA: 'inkorea',
   ABROAD: 'abroad',
   DIREACT: 'direact',
 };
+
+const SORT = {
+  RECENT: 'recent',
+  DEADLINE: 'deadline',
+};
+
 const Product = mongoose.model('Product', productSchema);
 
-const createProduct = async (
-  userId: string,
-  marketId: string,
-  data: object
-) => {
-  const product = new Product({
-    userId,
-    marketId,
-    ...data,
-  });
-  await product.save();
-};
+export class ProductRepository {
+  createProduct = async (userId: string, marketId: string, data: object) => {
+    const product = new Product({
+      userId,
+      marketId,
+      ...data,
+    });
+    await product.save();
+  };
 
-const getProductById = async (id: string) => {
-  return await Product.findById(id);
-};
+  getProductById = async (id: string) => {
+    return await Product.findById(id);
+  };
 
-const updateProduct = async (id: string, data: object) => {
-  await Product.updateOne({ _id: id }, { ...data });
-};
+  updateProduct = async (id: string, data: object) => {
+    await Product.updateOne({ _id: id }, { ...data });
+  };
 
-const deleteProduct = async (id: string) => {
-  await Product.deleteOne({ _id: id });
-};
+  deleteProduct = async (id: string) => {
+    await Product.deleteOne({ _id: id });
+  };
 
-const getProducts = async (query: QueryOptions, sortValue: any) => {
-  return await Product.find({ ...query }).sort(sortValue);
-};
+  getProducts = async (
+    search: string | undefined,
+    category: string | undefined,
+    nation: string | undefined,
+    sort: string | undefined
+  ) => {
+    const { query, sortValue } = this.createQueryOptions(
+      search,
+      category,
+      nation,
+      sort
+    );
+    return await Product.find({ ...query }).sort(sortValue as any);
+  };
 
-export {
-  OPTION_TYPE,
-  DELIVERY_TYPE,
-  createProduct,
-  getProductById,
-  updateProduct,
-  deleteProduct,
-  getProducts,
-};
+  createQueryOptions = (
+    search: string | undefined,
+    category: string | undefined,
+    nation: string | undefined,
+    sort: string | undefined
+  ) => {
+    let query: QueryOptions = {};
+    let categories, nations;
+    let sortValue: object = { createdAt: -1 };
+
+    if (search) {
+      query['productName'] = search;
+    }
+    if (category) {
+      categories = JSON.parse(category);
+      query['$or'] = categories;
+    }
+    if (nation) {
+      nations = JSON.parse(nation);
+      query['deliveryInfo.country'] = { $in: nations };
+    }
+    if (sort) {
+      if (sort === SORT.RECENT) {
+        sortValue = { createdAt: -1 };
+      } else if (sort === SORT.DEADLINE) {
+        sortValue = { 'deliveryInfo.dueDate': 1 };
+      }
+    }
+
+    return { query, sortValue };
+  };
+}
