@@ -1,29 +1,34 @@
-import * as userService from '../service/user';
-
 import { Request, Response } from 'express';
 
-const signup = async (req: Request, res: Response) => {
-  const { email, password, name, countryCode, phoneNumber, agreeTerms } =
-    req.body;
+import { UserService } from '../service/user';
 
-  await userService.signup(
-    email,
-    password,
-    name,
-    countryCode,
-    phoneNumber,
-    agreeTerms
-  );
+export class UserController {
+  private userService;
 
-  res.status(201).json({ message: 'SUCCESS' });
-};
+  constructor(userService: UserService) {
+    this.userService = userService;
+  }
+  signup = async (req: Request, res: Response) => {
+    const { email, password, name, countryCode, phoneNumber, agreeTerms } =
+      req.body;
 
-const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+    await this.userService.signup(
+      email,
+      password,
+      name,
+      countryCode,
+      phoneNumber,
+      agreeTerms
+    );
 
-  const result = await userService.login(email, password);
+    res.status(201).json({ message: 'SUCCESS' });
+  };
 
-  res.status(200).json({ token: result });
-};
+  login = async (req: Request, res: Response) => {
+    const { email, password } = req.body;
 
-export { signup, login };
+    const result = await this.userService.login(email, password);
+
+    res.status(200).json({ token: result });
+  };
+}
