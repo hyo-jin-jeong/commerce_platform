@@ -5,12 +5,13 @@
 - [ ] 버그 수정
 - [ ] 의존성, 환경 변수, 빌드 관련 코드 업데이트
 - [ ] 테스트 작성
+- [ ] 리팩토링
 
 <br>
 
 ### 반영 브랜치
 
-ex) feature/login -> dev
+feature/login -> dev
 
 <br>
 
