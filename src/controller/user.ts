@@ -21,7 +21,7 @@ export class UserController {
       agreeTerms
     );
 
-    res.status(201).json({ message: 'SUCCESS' });
+    res.status(201).json({ message: '성공' });
   };
 
   login = async (req: Request, res: Response) => {
