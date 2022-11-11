@@ -9,7 +9,7 @@ const authentication = (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
-      throw new UnauthorizedException('UNAUTHORIZED');
+      throw new UnauthorizedException();
     }
     const decoded = jwt.verify(token, config.jwt.secretKey);
     req.userId = (decoded as any)?.userId;
@@ -17,7 +17,7 @@ const authentication = (req: Request, res: Response, next: NextFunction) => {
     return next();
   } catch (err) {
     logger.error(err);
-    throw new UnauthorizedException('UNAUTHORIZED');
+    throw new UnauthorizedException();
   }
 };
 

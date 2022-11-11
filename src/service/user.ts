@@ -24,7 +24,7 @@ export class UserService {
   ) => {
     const user = await this.userRepository.getUserByEmail(email);
     if (user) {
-      throw new BadReqeustException('EXISTS VALUE');
+      throw new BadReqeustException('존재하는 email입니다.');
     }
     const hashedPassword = await encryptPassword(password);
 
@@ -42,10 +42,10 @@ export class UserService {
     const user = await this.userRepository.getUserByEmail(email);
 
     if (!user) {
-      throw new UnauthorizedException('UNAUTHORIZED');
+      throw new UnauthorizedException();
     }
     if (!(await isSamePassword(password, user.password))) {
-      throw new UnauthorizedException('UNAUTHORIZED');
+      throw new UnauthorizedException();
     }
     return createJsonWebToken(user._id);
   };
