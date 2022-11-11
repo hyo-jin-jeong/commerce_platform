@@ -2,7 +2,6 @@ import 'express-async-errors';
 
 import { logger, stream } from './logger/logger';
 
-import { connectDB } from './db/database.js';
 import cors from 'cors';
 import errorHandler from './middleware/errorHandler';
 import exceptionHandler from './middleware/exceptionHandler';
@@ -11,27 +10,42 @@ import morgan from 'morgan';
 import notFoundHandler from './middleware/notFoundHandler';
 import router from './route/index';
 
-const corsOptions = {
-  origin: '*',
-};
+class App {
+  private app: express.Application;
+  private port: number;
 
-export const startServer = (port: number) => {
-  const app = express();
-  app.use(express.json());
-  app.use(cors(corsOptions));
-  app.use(morgan('combined', { stream }));
-  app.use('/api', router);
+  constructor(port: number) {
+    this.app = express();
+    this.port = port;
 
-  app.use(notFoundHandler);
-  app.use(exceptionHandler);
-  app.use(errorHandler);
+    this.initializedMiddlewares();
+    this.initializedRouter();
+    this.initializedErrorHandler();
+  }
 
-  connectDB().then(() => {
-    logger.info('mongo db connected');
-  });
+  initializedMiddlewares() {
+    this.app.use(express.json());
+    this.app.use(
+      cors({
+        origin: '*',
+      })
+    );
+    this.app.use(morgan('combined', { stream }));
+  }
+  initializedRouter() {
+    this.app.use('/api', router);
+  }
+  initializedErrorHandler() {
+    this.app.use(notFoundHandler);
+    this.app.use(exceptionHandler);
+    this.app.use(errorHandler);
+  }
+  listen() {
+    const server = this.app.listen(this.port, () => {
+      logger.info(`port: ${this.port} => start server`);
+    });
+    return server;
+  }
+}
 
-  const server = app.listen(port, () => {
-    logger.info(`port: ${port} => server start`);
-  });
-  return server;
-};
+export default App;

@@ -1,4 +1,4 @@
 import config from './config';
-import { startServer } from './app';
+import startServer from './server';
 
 startServer(Number(config.port));
