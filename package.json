@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "start": "concurrently \"tsc \" \"node dist/index.js\""
   },
   "repository": {
     "type": "git",
