@@ -111,9 +111,7 @@ query string 방식
 ### 기능 구현
 작성 예정
 ### 테스트 코드
-분기가 있는 로직 위주로 Unit test를 구현중에 있습니다.
-- user service 테스트 구현
-![image](https://user-images.githubusercontent.com/55984573/201157528-ac3dd93a-5b9b-4810-8e12-d8e3f592d295.png)
+리팩토링 후 다시 작성중입니다.
 
 
 ## 프로젝트 구조
