@@ -8,8 +8,8 @@ import express from 'express';
 
 const router = express.Router();
 
-export default function userRouter(userController: UserController) {
+export const userRouter = (userController: UserController) => {
   router.post('/signup', signupValidate, userController.signup);
   router.post('/login', emailAndPasswordValidate, userController.login);
   return router;
-}
+};
