@@ -1,7 +1,6 @@
 import { body } from 'express-validator';
 import validate from '../../middleware/validate';
 
-const INVALID_VALUE = 'INVALID_VALUE';
 const passwordReq =
   /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
 

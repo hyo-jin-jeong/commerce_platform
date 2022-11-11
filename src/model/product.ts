@@ -1,4 +1,4 @@
-import mongoose, { Query, QueryOptions } from 'mongoose';
+import mongoose, { QueryOptions } from 'mongoose';
 
 import { productSchema } from '../db/schema/product';
 

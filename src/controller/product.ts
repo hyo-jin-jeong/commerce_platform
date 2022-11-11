@@ -15,7 +15,7 @@ export class ProductController {
 
     await this.productService.createProduct(userId!, data);
 
-    res.status(201).json({ message: 'SUCCESS' });
+    res.status(201).json({ message: '성공' });
   };
 
   updateProduct = async (req: Request, res: Response) => {
@@ -25,7 +25,7 @@ export class ProductController {
 
     await this.productService.updateProduct(id, userId!, data);
 
-    res.status(201).json({ message: 'SUCCESS' });
+    res.status(201).json({ message: '성공' });
   };
 
   deleteProduct = async (req: Request, res: Response) => {
@@ -34,7 +34,7 @@ export class ProductController {
 
     await this.productService.deleteProduct(id, userId!);
 
-    res.status(200).json({ message: 'SUCCESS' });
+    res.status(200).json({ message: '성공' });
   };
 
   getProduct = async (req: Request, res: Response) => {
