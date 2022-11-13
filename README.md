@@ -193,7 +193,7 @@ product 정보에 필요한 optionList, productImg 등 부가 정보들은 colle
 > 나머지 테스트는 리팩토링 후 다시 작성중에 있습니다.
 
 ## 프로젝트 구조
-작성 예정
+리팩토링 완료 후 작성 예정입니다.
 
 ## 설치 및 실행 방법
 nodejs와 npm이 install 되어있지 않다면 먼저 install 과정 진행
