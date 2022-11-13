@@ -76,11 +76,91 @@ query string 방식
 - 썸네일(최대 8장) → 구현 예정
 - 상세설명(사용자 선택) → 구현 예정
     - 동영상 or 사진 → detail 설명 설정 가능
+    
 ## DB Modeling
 총 3개의 collection을 가지고 진행
-- 유저
-- 마켓
-- 상품
+세개의 collection에 대한 데이터를 한번에 반환해야 하는 api가 없는 것을 고려하여 호출의 효율성을 위한 데이터 중복 보단 업데이트 시 발생할 수 있는 문제점들을 고려하여 모델링 하였습니다.
+
+<details>
+    <summary>User</summary>
+
+```javascript
+{
+	_id,
+	email,
+	password,
+	name,
+	countryCode,
+	phoneNumber,
+	agreeTerms
+}
+```
+
+</details>
+<details>
+    <summary>Market</summary>
+    
+market data 이외에 판매자의 userId, username, product id를 배열 값으로 가지고 있습니다.<br>
+market 정보를 불러올 때 판매자의 이름은 함께 반환해주는 것이 좋다고 판단하여 username 정보까지 넣어주었습니다.
+```javascript
+{
+	_id,
+	marketName,
+	accountNumber,
+	accountName, 
+	userId,
+	userName
+	products: []
+}
+```
+
+</details>
+<details>
+    <summary>Product</summary>
+
+product 정보에 필요한 optionList, productImg 등 부가 정보들은 collection을 따로 생성하지 않고 호출의 효율성을 위해 embedded 방식으로 모델링 하였습니다.<br>
+또한 해당 product가 어떤 판매자의 마켓 상품인지 판별하기 위해 userId, marketId 값을 넣어주었습니다.
+```javascript
+{
+	_id,
+	productName,
+	mainCategory",
+	subCategory,
+	productInfo
+	purchaseDate,
+	price,
+	optionType - "single" or "group"
+	optionsList: [{
+		type,
+		name,
+		stock,
+	}]
+	productImg: [{
+		id
+		url
+	}]
+	productDetail: [{
+		type - "video" or "image",
+		url,
+		info
+	}],
+	deliveryInfo: {
+		country,
+		dueDate,
+		type - "inkorea" or "abroad" or "direact"
+		price
+		bundle,
+		sendDate,
+
+	}
+	userId,
+	marketId,
+}
+```
+
+</details>
+
+
 ## API 문서
 자세한 내용은 아래 링크 참조<br>
 [POSTMAN DOCS](https://documenter.getpostman.com/view/11539438/2s8YemvaPn).
