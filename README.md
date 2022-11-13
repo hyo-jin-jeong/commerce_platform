@@ -97,7 +97,7 @@ query string 방식
 
 
 ## 구현 과정 
-### 프로젝트 초기 세팅 순서
+### 프로젝트 초기 세팅 과정
 1. npm init
 2. express 설치
 3. 프로젝트에 필요한 기본적인 모듈 추가
@@ -106,13 +106,10 @@ query string 방식
 6. app.js 작성
 7. 데이터베이스 세팅 
 
-### 데이터베이스 모델 작성
-작성 예정
-### 기능 구현
-작성 예정
 ### 테스트 코드
+user singup & login unit test 구현
+![image](https://user-images.githubusercontent.com/55984573/201519451-ffe06a25-f09d-49df-b0da-c92078a97250.png)
 리팩토링 후 다시 작성중입니다.
-
 
 ## 프로젝트 구조
 작성 예정
