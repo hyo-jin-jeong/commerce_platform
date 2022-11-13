@@ -78,7 +78,7 @@ query string 방식
     - 동영상 or 사진 → detail 설명 설정 가능
     
 ## DB Modeling
-총 3개의 collection을 가지고 진행
+총 3개의 collection을 가지고 진행<br>
 세개의 collection에 대한 데이터를 한번에 반환해야 하는 api가 없는 것을 고려하여 호출의 효율성을 위한 데이터 중복 보단 업데이트 시 발생할 수 있는 문제점들을 고려하여 모델링 하였습니다.
 
 <details>
