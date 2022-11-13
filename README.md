@@ -107,10 +107,10 @@ query string 방식
 7. 데이터베이스 세팅 
 
 ### 테스트 코드
-user singup & login unit test 구현
+- user singup & login unit test 구현<br>
 <img src = 'https://user-images.githubusercontent.com/55984573/201519451-ffe06a25-f09d-49df-b0da-c92078a97250.png' width=70%>
 
-리팩토링 후 다시 구현중입니다.
+> 나머지 테스트는 리팩토링 후 다시 작성중에 있습니다...
 
 ## 프로젝트 구조
 작성 예정
