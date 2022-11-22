@@ -18,10 +18,10 @@ export class ProductService {
     const product = await this.productRepository.getProductById(id);
     console.log(product?.userId, userId);
     if (!product) {
-      throw new NotFoundException('NOT_FOUND');
+      throw new NotFoundException();
     }
     if (product.userId !== userId) {
-      throw new ForbiddenException('INVALID_PERMISSION');
+      throw new ForbiddenException();
     }
     return product;
   };
@@ -29,7 +29,7 @@ export class ProductService {
   createProduct = async (userId: string, data: object) => {
     const market = await this.marketRepository.getMarketByUserId(userId);
     if (!market) {
-      throw new ForbiddenException('INVALID_PERMISSION');
+      throw new ForbiddenException();
     }
     await this.productRepository.createProduct(
       userId,

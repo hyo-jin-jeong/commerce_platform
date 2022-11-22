@@ -22,12 +22,12 @@ export class MarketService {
   ) => {
     const user = await this.userRepository.getUserById(userId);
     if (!user) {
-      throw new UnauthorizedException('UNAUTHORIZED');
+      throw new UnauthorizedException();
     }
 
     const market = await this.marketRepository.getMarketByUserId(userId);
     if (market) {
-      throw new BadReqeustException('EXISTS_VALUE');
+      throw new BadReqeustException();
     }
 
     await this.marketRepository.createMarket(

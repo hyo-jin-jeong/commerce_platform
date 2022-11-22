@@ -19,6 +19,6 @@ export class MarketController {
       accountNumber,
       accountName
     );
-    res.status(201).json({ message: 'SUCCESS' });
+    res.status(201).json({ message: '성공' });
   };
 }
