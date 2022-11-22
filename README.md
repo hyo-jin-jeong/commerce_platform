@@ -193,10 +193,14 @@ product 정보에 필요한 optionList, productImg 등 부가 정보들은 colle
 7. 데이터베이스 세팅 
 
 ### 테스트 코드
-- user singup & login unit test 구현<br>
-<img src = 'https://user-images.githubusercontent.com/55984573/201519451-ffe06a25-f09d-49df-b0da-c92078a97250.png' width=70%>
+user logic 위주로 unit test를 구현하였습니다.
+- authentication middleware unit test<br>
+<img width="459" alt="image" src="https://user-images.githubusercontent.com/55984573/203311112-b9ae85a8-9d85-4b5d-890d-9a736bd4f9df.png"><br>
+- user controller unit test<br>
+<img width="359" alt="image" src="https://user-images.githubusercontent.com/55984573/203311291-241eac2c-625a-4c36-9921-fe3fa915eb4a.png"><br>
+- user service unit test<br>
+<img width="520" alt="image" src="https://user-images.githubusercontent.com/55984573/203348187-4b98f56b-1578-4071-9502-f0848f23a1e0.png"><br>
 
-> 나머지 테스트는 리팩토링 후 다시 작성중에 있습니다.
 
 ## 프로젝트 구조
 리팩토링 완료 후 작성 예정입니다.
