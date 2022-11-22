@@ -193,7 +193,7 @@ user logic 위주로 unit test를 구현하였습니다.
 
 
 ## 프로젝트 구조
-리팩토링 완료 후 작성 예정입니다.
+<img width="160" alt="image" src="https://user-images.githubusercontent.com/55984573/203349225-483512ea-ed9d-46c5-be60-8460765378d8.png">
 
 ## 설치 및 실행 방법
 nodejs와 npm이 install 되어있지 않다면 먼저 install 과정 진행
