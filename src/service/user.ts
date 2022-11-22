@@ -1,47 +1,52 @@
-import * as userRepository from '../model/user';
-
 import {
   BadReqeustException,
   UnauthorizedException,
 } from '../util/exception/index';
 import { encryptPassword, isSamePassword } from '../util/encryptPassword';
 
+import { UserRepository } from '../model/user';
 import { createJsonWebToken } from '../util/createJsonWebToken';
 
-const signup = async (
-  email: string,
-  password: string,
-  name: string,
-  countryCode: string,
-  phoneNumber: string,
-  agreeTerms: boolean
-) => {
-  const user = await userRepository.getUserByEmail(email);
-  if (user) {
-    throw new BadReqeustException('EXISTS VALUE');
+export class UserService {
+  private userRepository;
+
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
   }
-  const hashedPassword = await encryptPassword(password);
 
-  await userRepository.createUser({
-    email,
-    password: hashedPassword,
-    name,
-    countryCode,
-    phoneNumber,
-    agreeTerms,
-  });
-};
+  signup = async (
+    email: string,
+    password: string,
+    name: string,
+    countryCode: string,
+    phoneNumber: string,
+    agreeTerms: boolean
+  ) => {
+    const user = await this.userRepository.getUserByEmail(email);
+    if (user) {
+      throw new BadReqeustException('존재하는 email입니다.');
+    }
+    const hashedPassword = await encryptPassword(password);
 
-const login = async (email: string, password: string) => {
-  const user = await userRepository.getUserByEmail(email);
+    await this.userRepository.createUser({
+      email,
+      password: hashedPassword,
+      name,
+      countryCode,
+      phoneNumber,
+      agreeTerms,
+    });
+  };
 
-  if (!user) {
-    throw new UnauthorizedException('UNAUTHORIZED');
-  }
-  if (!(await isSamePassword(password, user.password))) {
-    throw new UnauthorizedException('UNAUTHORIZED');
-  }
-  return createJsonWebToken(user._id);
-};
+  login = async (email: string, password: string) => {
+    const user = await this.userRepository.getUserByEmail(email);
 
-export { signup, login };
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    if (!(await isSamePassword(password, user.password))) {
+      throw new UnauthorizedException();
+    }
+    return createJsonWebToken(user._id);
+  };
+}
