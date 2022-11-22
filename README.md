@@ -12,7 +12,7 @@
 - ODM : mongoose
 - DB : mongodb
 
-## 요구사항 분석 및 구현 사항 정리
+## 구현 사항 정리
 ### 기술 관련
 - winston, morgan module을 사용하여 logging 처리
 - express-validator module 사용하여 validation 처리
