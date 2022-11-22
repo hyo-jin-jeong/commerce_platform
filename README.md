@@ -182,16 +182,6 @@ product 정보에 필요한 optionList, productImg 등 부가 정보들은 colle
 |  |  상품목록조회  | GET |api/markets/products| | ?search=미국 <br>&category=[{"mainCategory":"가방"},{"mainCategory":"신발", "subCategory":"운동화"}]<br>&nation=["korea", "us"]<br> &sort=deadline |
 
 
-## 구현 과정 
-### 프로젝트 초기 세팅 과정
-1. npm init
-2. express 설치
-3. 프로젝트에 필요한 기본적인 모듈 추가
-4. env 파일 생성 및 .gitignore 생성
-5. eslint, prettierrc 설정
-6. app.js 작성
-7. 데이터베이스 세팅 
-
 ### 테스트 코드
 user logic 위주로 unit test를 구현하였습니다.
 - authentication middleware unit test<br>
